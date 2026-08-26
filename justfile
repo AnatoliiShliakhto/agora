@@ -4,6 +4,8 @@ export JUST_NO_PAGER := "1"
 export RUST_BACKTRACE := "1"
 
 native := '--config build.rustflags=["-C","target-cpu=native"]'
+# `cargo fuzz` defaults to a musl target that is rarely installed; always build for the host.
+host_target := `rustc -vV | sed -n 's/^host: //p'`
 
 default:
     @just --list --unsorted
@@ -11,7 +13,8 @@ default:
 # Install the dev tools CI expects (nextest, deny, hack, typos, taplo, llvm-cov, fuzz).
 setup:
     cargo binstall -y cargo-nextest cargo-deny cargo-hack typos-cli taplo-cli cargo-llvm-cov cargo-fuzz
-    rustup toolchain install nightly --component rustfmt miri
+    # `rust-src` is required by miri, which builds its own standard library.
+    rustup toolchain install nightly --component rustfmt miri rust-src
 
 # Format everything (nightly rustfmt for `rustfmt.toml` unstable options, taplo for TOML).
 fmt:
@@ -31,9 +34,12 @@ check:
 lint *args:
     cargo clippy --workspace --all-targets --all-features --locked -- -D warnings {{args}}
 
-# Clippy over the feature powerset of every crate (catches feature-gated breakage).
+# Clippy over every feature of every crate; `--no-dev-deps` also catches a dev-dependency
+# leaking into non-test code. No `--locked`: `--no-dev-deps` rewrites `Cargo.toml` while it
+# runs, so cargo needs to resolve a lockfile for that temporary manifest, which `--locked`
+# forbids. The real `Cargo.lock` is restored untouched — CI asserts that.
 lint-features:
-    cargo hack clippy --workspace --each-feature --no-dev-deps --locked -- -D warnings
+    cargo hack clippy --workspace --each-feature --no-dev-deps -- -D warnings
 
 # Run tests (nextest if installed; `just test -p agora-matching book::` narrows scope).
 test *args:
@@ -78,10 +84,11 @@ miri *args:
 
 # Run a fuzz target: `just fuzz matching_stream`.
 fuzz target *args:
-    cd fuzz && cargo +nightly fuzz run {{target}} {{args}}
+    cd fuzz && cargo +nightly fuzz run --target {{host_target}} {{target}} {{args}}
 
-# Full local CI gate. Run before every push.
-verify: fmt-check lint test test-doc doc deny typos bench-build
+# Full local CI gate — the same checks, in the same order, as `.github/workflows/ci.yml`.
+# Run before every push.
+verify: fmt-check lint lint-features test test-doc doc deny typos bench-build
     @echo "verify: all gates passed"
 
 # Run the exchange server with the dev config.

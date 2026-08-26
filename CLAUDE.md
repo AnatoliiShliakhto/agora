@@ -15,7 +15,7 @@ Read in this order before non-trivial work: `docs/DOMAIN.md` (semantics), `docs/
 
 ```bash
 just                 # list recipes
-just verify          # full local CI gate: fmt-check lint test test-doc doc deny typos bench-build
+just verify          # full local CI gate: fmt-check lint lint-features test test-doc doc deny typos bench-build
 just fmt             # cargo +nightly fmt + taplo (rustfmt.toml uses unstable options)
 just lint            # clippy --workspace --all-targets --all-features -- -D warnings
 just test [args]     # nextest; `just test -p agora-matching book::` narrows

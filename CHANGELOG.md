@@ -13,6 +13,22 @@ All notable changes to this project are documented here. The format follows
 - `CAPSTONE.md` — Ukrainian onboarding document for contributors: what the project is, the
   engineering challenges it covers, how to start, how to take tasks and what to expect.
 
+### Fixed
+
+- CI's feature-powerset job passed `--no-dev-deps` together with `--locked`, which cannot work:
+  `--no-dev-deps` rewrites `Cargo.toml` while it runs, so cargo must resolve a lockfile for that
+  temporary manifest and `--locked` aborts it. Dropped `--locked` there, and CI now asserts the
+  real `Cargo.lock` comes back unchanged.
+- `just verify` was missing the `lint-features` gate that CI runs, so a feature-only failure
+  could only surface after pushing. The local gate now mirrors CI exactly.
+- The fuzz recipe and its nightly job built for `x86_64-unknown-linux-musl`, which is
+  `cargo fuzz`'s default target and is not installed on CI runners; both now build for the host
+  triple.
+- The nightly miri job lacked the `rust-src` component, so `cargo miri` stopped on an
+  interactive prompt asking to install it.
+- CI jobs now invoke the same `just` recipes contributors run, instead of duplicating the
+  commands — that duplication is what let the gates drift apart in the first place.
+
 ### Changed
 
 - `README.md` now separates what works today from what the plan adds, instead of describing the

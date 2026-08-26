@@ -16,6 +16,12 @@ final status and any gate that was skipped.
 - **lint**: read the lint name. Fix the code first; `#[expect(lint, reason = "...")]` only when
   the lint is wrong for this site. `unfulfilled_lint_expectations` means the `expect` is now
   unnecessary — remove it. Never touch the workspace lint table in a feature PR.
+- **lint-features**: clippy over every feature of every crate. A failure here that `lint` did
+  not catch means feature-gated code (`#[cfg(feature = "…")]`) is broken in some combination, or
+  a `dev-dependency` is used from non-test code — `--no-dev-deps` removes them, so the import
+  stops resolving. Note that this recipe deliberately runs **without `--locked`**: `--no-dev-deps`
+  rewrites `Cargo.toml` while it runs, and `--locked` would abort on the resulting resolve. The
+  real lockfile is restored unchanged; CI asserts that with `git diff --exit-code Cargo.lock`.
 - **test**: nextest prints the failing test; rerun it alone with
   `just test -p <crate> <name>`. For `insta` mismatches, inspect the diff; accept with
   `INSTA_UPDATE=always just test -p <crate>` only if the change is intended and note it in the PR.
