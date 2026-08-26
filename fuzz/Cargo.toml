@@ -1,0 +1,23 @@
+[package]
+name = "agora-fuzz"
+version = "0.0.0"
+edition = "2024"
+publish = false
+
+[package.metadata]
+cargo-fuzz = true
+
+[dependencies]
+libfuzzer-sys = "0.4"
+arbitrary = { version = "1", features = ["derive"] }
+agora-domain = { path = "../crates/domain" }
+agora-matching = { path = "../crates/matching" }
+
+[[bin]]
+name = "matching_stream"
+path = "fuzz_targets/matching_stream.rs"
+test = false
+doc = false
+bench = false
+
+[workspace]

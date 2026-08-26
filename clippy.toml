@@ -1,0 +1,53 @@
+avoid-breaking-exported-api = false
+msrv = "1.98"
+
+cognitive-complexity-threshold = 25
+too-many-lines-threshold = 150
+too-many-arguments-threshold = 7
+type-complexity-threshold = 300
+enum-variant-size-threshold = 256
+large-error-threshold = 128
+
+# Domain acronyms that `doc_markdown` must not ask to backtick.
+doc-valid-idents = [
+    "..",
+    "ACID",
+    "ADR",
+    "CRC",
+    "DDD",
+    "DST",
+    "FIFO",
+    "FOK",
+    "GTC",
+    "GTD",
+    "GCRA",
+    "HFT",
+    "IOC",
+    "JetStream",
+    "L2",
+    "L3",
+    "MPSC",
+    "NATS",
+    "OpenAPI",
+    "QoS",
+    "REST",
+    "SPSC",
+    "STP",
+    "TIF",
+    "ULID",
+    "UUID",
+    "WAL",
+    "WebSocket",
+]
+
+# Hot path is single-writer + message passing; blocking std primitives are opt-in with a reason.
+disallowed-types = [
+    { path = "std::sync::Mutex", reason = "use message passing; if a lock is unavoidable use `parking_lot::Mutex` outside the hot path" },
+    { path = "std::sync::RwLock", reason = "use `arc_swap::ArcSwap` for read-mostly config, `parking_lot::RwLock` otherwise" },
+    { path = "std::sync::mpsc::Sender", reason = "use tokio/crossbeam/rtrb channels" },
+    { path = "std::sync::mpsc::Receiver", reason = "use tokio/crossbeam/rtrb channels" },
+]
+
+disallowed-methods = [
+    { path = "std::thread::sleep", reason = "blocks a runtime worker; use `tokio::time::sleep` or the testkit clock" },
+]

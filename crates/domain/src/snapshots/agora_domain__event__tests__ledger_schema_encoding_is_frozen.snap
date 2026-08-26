@@ -1,0 +1,8 @@
+---
+source: crates/domain/src/event.rs
+expression: listing(&samples)
+---
+Reserved: 00 03 02 0b d0 0f
+Released: 01 03 02 0b a0 06
+Committed: 02 03 02 0b b0 09
+Posted: 03 01 01 02 03 04 b0 09

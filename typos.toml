@@ -1,0 +1,13 @@
+[default]
+extend-ignore-re = [
+    "(?i)ULID[A-Z0-9]*",
+    "0x[0-9A-Fa-f]+",
+    "01J[0-9A-Z]{23}",   # ULID literals in tests
+]
+
+[default.extend-words]
+# Domain and dependency names that typos misreads.
+ser = "ser"
+
+[files]
+extend-exclude = ["target/", "Cargo.lock", "*.svg", "*.snap"]

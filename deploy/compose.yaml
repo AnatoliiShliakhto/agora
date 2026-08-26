@@ -1,0 +1,28 @@
+# Local infrastructure for development: `just infra-up` / `just infra-down`.
+services:
+  nats:
+    image: docker.io/library/nats:2.11
+    command: ["--jetstream", "--store_dir", "/data", "--http_port", "8222"]
+    ports:
+      - "4222:4222"
+      - "8222:8222"
+    volumes:
+      - ./data/nats:/data
+
+  prometheus:
+    image: docker.io/prom/prometheus:v3.5.0
+    command: ["--config.file=/etc/prometheus/prometheus.yml"]
+    ports:
+      - "9090:9090"
+    volumes:
+      - ./prometheus.yml:/etc/prometheus/prometheus.yml:ro
+
+  grafana:
+    image: docker.io/grafana/grafana:12.1.0
+    ports:
+      - "3000:3000"
+    environment:
+      GF_AUTH_ANONYMOUS_ENABLED: "true"
+      GF_AUTH_ANONYMOUS_ORG_ROLE: Admin
+    volumes:
+      - ./grafana:/etc/grafana/provisioning:ro

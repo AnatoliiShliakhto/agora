@@ -1,0 +1,30 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(cargo build *)",
+      "Bash(cargo check *)",
+      "Bash(cargo clippy *)",
+      "Bash(cargo doc *)",
+      "Bash(cargo fmt *)",
+      "Bash(cargo +nightly fmt *)",
+      "Bash(cargo nextest *)",
+      "Bash(cargo test *)",
+      "Bash(cargo bench *)",
+      "Bash(cargo deny *)",
+      "Bash(cargo hack *)",
+      "Bash(cargo tree *)",
+      "Bash(cargo info *)",
+      "Bash(cargo metadata *)",
+      "Bash(just *)",
+      "Bash(typos *)",
+      "Bash(taplo *)",
+      "Bash(git status *)",
+      "Bash(git diff *)",
+      "Bash(git log *)",
+      "Bash(git branch *)",
+      "Bash(rg *)",
+      "Bash(grep *)",
+      "Bash(find *)"
+    ]
+  }
+}

@@ -1,0 +1,9 @@
+---
+source: crates/domain/src/event.rs
+expression: listing(&samples)
+---
+OrderAccepted: 00 07 0b 03
+OrderRejected: 01 0b 03 06 02
+Trade: 02 01 07 02 00 80 af 01 f4 03 e0 01 e0 08
+OrderDone: 03 07 03 00
+StopTriggered: 04 09 f6 ae 01

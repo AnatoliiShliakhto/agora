@@ -1,0 +1,11 @@
+[alias]
+lint = "clippy --workspace --all-targets --all-features -- -D warnings"
+xcheck = "check --workspace --all-targets --all-features"
+xtest = "test --workspace --all-features"
+xdoc = "doc --workspace --all-features --no-deps"
+
+[env]
+RUST_BACKTRACE = "1"
+
+# Benchmarks and profiling builds target the host CPU; regular builds stay portable.
+# Usage: `cargo bench --config 'build.rustflags=["-C","target-cpu=native"]'` (wrapped by `just bench`).

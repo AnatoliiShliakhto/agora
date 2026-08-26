@@ -1,0 +1,37 @@
+[package]
+name = "agora-adapters"
+description = "Ports and adapters for external providers: liquidity, price oracle, macroeconomy module"
+readme = "README.md"
+version.workspace = true
+edition.workspace = true
+rust-version.workspace = true
+license.workspace = true
+authors.workspace = true
+repository.workspace = true
+homepage.workspace = true
+keywords.workspace = true
+categories.workspace = true
+publish.workspace = true
+
+[features]
+default = []
+# Pulls `mockall` mocks of every port into the library for downstream tests.
+mocks = ["dep:mockall"]
+
+[dependencies.mockall]
+workspace = true
+optional = true
+
+[dependencies]
+agora-domain = { workspace = true }
+agora-resilience = { workspace = true }
+async-trait = { workspace = true }
+thiserror = { workspace = true }
+tokio = { workspace = true }
+
+[dev-dependencies]
+mockall = { workspace = true }
+tokio = { workspace = true }
+
+[lints]
+workspace = true

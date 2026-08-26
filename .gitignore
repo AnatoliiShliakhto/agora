@@ -1,0 +1,25 @@
+/target
+/fuzz/target
+/fuzz/artifacts
+/fuzz/corpus
+*.profraw
+*.profdata
+/coverage
+/perf.data*
+/flamegraph.svg
+.env
+.env.*
+!.env.example
+/deploy/data
+
+# Per-developer Claude Code context and settings (see CONTRIBUTING.md § Local setup).
+CLAUDE.local.md
+.claude/settings.local.json
+
+# IDE and editor state: the repo is IDE-agnostic, keep yours out of it.
+/.idea/
+/.vscode/
+/.zed/
+/.fleet/
+/.helix/
+*.iml

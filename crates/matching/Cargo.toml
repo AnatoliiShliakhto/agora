@@ -1,0 +1,32 @@
+[package]
+name = "agora-matching"
+description = "In-memory order book and deterministic price-time matching engine"
+readme = "README.md"
+version.workspace = true
+edition.workspace = true
+rust-version.workspace = true
+license.workspace = true
+authors.workspace = true
+repository.workspace = true
+homepage.workspace = true
+keywords.workspace = true
+categories.workspace = true
+publish.workspace = true
+
+[[bench]]
+name = "book"
+harness = false
+
+[dependencies]
+agora-domain = { workspace = true }
+serde = { workspace = true }
+slotmap = { workspace = true }
+thiserror = { workspace = true }
+
+[dev-dependencies]
+criterion = { workspace = true }
+proptest = { workspace = true }
+agora-testkit = { workspace = true }
+
+[lints]
+workspace = true

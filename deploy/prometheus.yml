@@ -1,0 +1,8 @@
+global:
+  scrape_interval: 5s
+
+scrape_configs:
+  - job_name: agora
+    static_configs:
+      # The server exposes /metrics on its API port; host.containers.internal is podman's host alias.
+      - targets: ["host.containers.internal:8080"]

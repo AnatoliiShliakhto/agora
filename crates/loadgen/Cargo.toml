@@ -1,0 +1,33 @@
+[package]
+name = "agora-loadgen"
+description = "Load generator and latency reporter for the exchange API"
+readme = "README.md"
+version.workspace = true
+edition.workspace = true
+rust-version.workspace = true
+license.workspace = true
+authors.workspace = true
+repository.workspace = true
+homepage.workspace = true
+keywords.workspace = true
+categories.workspace = true
+publish.workspace = true
+
+[[bin]]
+name = "agora-loadgen"
+path = "src/main.rs"
+
+[dependencies]
+agora-client = { workspace = true }
+agora-telemetry = { workspace = true }
+anyhow = { workspace = true }
+clap = { workspace = true }
+humantime = { workspace = true }
+tokio = { workspace = true }
+tracing = { workspace = true }
+
+[dev-dependencies]
+
+
+[lints]
+workspace = true

@@ -1,0 +1,29 @@
+[package]
+name = "agora-domain"
+description = "Pure domain model: fixed-point money, identifiers, instruments, orders, domain events"
+readme = "README.md"
+version.workspace = true
+edition.workspace = true
+rust-version.workspace = true
+license.workspace = true
+authors.workspace = true
+repository.workspace = true
+homepage.workspace = true
+keywords.workspace = true
+categories.workspace = true
+publish.workspace = true
+
+[dependencies]
+serde = { workspace = true }
+strum = { workspace = true }
+thiserror = { workspace = true }
+
+[dev-dependencies]
+insta = { workspace = true }
+postcard = { workspace = true }
+proptest = { workspace = true }
+rstest = { workspace = true }
+serde_json = { workspace = true }
+
+[lints]
+workspace = true

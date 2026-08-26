@@ -1,0 +1,9 @@
+---
+source: crates/domain/src/event.rs
+expression: listing(&samples)
+---
+Created: 00 05 03 04
+ObligationDue: 01 05 01 02 a0 9c 01
+ObligationSettled: 02 05 01 a0 9c 01
+ObligationMissed: 03 05 02 88 27
+Closed: 04 05 01

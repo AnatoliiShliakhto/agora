@@ -1,0 +1,38 @@
+[package]
+name = "agora-runtime"
+description = "Actor runtime: instrument shards, sequencer, supervision, self-healing, health"
+readme = "README.md"
+version.workspace = true
+edition.workspace = true
+rust-version.workspace = true
+license.workspace = true
+authors.workspace = true
+repository.workspace = true
+homepage.workspace = true
+keywords.workspace = true
+categories.workspace = true
+publish.workspace = true
+
+[dependencies]
+agora-bus = { workspace = true }
+agora-contracts = { workspace = true }
+agora-domain = { workspace = true }
+agora-eventstore = { workspace = true }
+agora-ledger = { workspace = true }
+agora-matching = { workspace = true }
+agora-resilience = { workspace = true }
+actix = { workspace = true }
+actix-rt = { workspace = true }
+arc-swap = { workspace = true }
+crossbeam-queue = { workspace = true }
+rtrb = { workspace = true }
+thiserror = { workspace = true }
+tokio = { workspace = true }
+tracing = { workspace = true }
+
+[dev-dependencies]
+agora-testkit = { workspace = true }
+tokio = { workspace = true }
+
+[lints]
+workspace = true

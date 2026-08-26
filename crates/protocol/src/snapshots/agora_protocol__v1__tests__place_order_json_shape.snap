@@ -1,0 +1,14 @@
+---
+source: crates/protocol/src/v1.rs
+expression: req
+---
+{
+  "client_order_id": "01J0000000000000000000000",
+  "symbol": "EURUSD",
+  "side": "BUY",
+  "order_type": "LIMIT",
+  "time_in_force": "GTC",
+  "quantity": "1000000",
+  "price": "1.1200",
+  "trigger_price": null
+}
