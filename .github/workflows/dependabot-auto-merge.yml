@@ -1,0 +1,32 @@
+name: Dependabot auto-merge
+
+# `pull_request_target` because runs triggered by dependabot on `pull_request` get a read-only
+# token and no secrets, so they cannot enable auto-merge. This job never checks out the PR
+# branch — it only calls the API — so the usual `pull_request_target` code-execution risk does
+# not apply here. Do not add a checkout step.
+on: pull_request_target
+
+permissions:
+  contents: write
+  pull-requests: write
+
+jobs:
+  auto-merge:
+    name: enable auto-merge
+    if: github.actor == 'dependabot[bot]'
+    runs-on: ubuntu-latest
+    steps:
+      - id: meta
+        uses: dependabot/fetch-metadata@v2
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+
+      # Action bumps merge on any version jump; cargo bumps only on minor/patch, because a major
+      # in a Rust crate usually means code changes that need reading, not just a green gate.
+      - if: >-
+          steps.meta.outputs.package-ecosystem == 'github_actions'
+          || steps.meta.outputs.update-type != 'version-update:semver-major'
+        run: gh pr merge --auto --squash "$PR_URL"
+        env:
+          PR_URL: ${{ github.event.pull_request.html_url }}
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}

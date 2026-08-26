@@ -58,10 +58,13 @@ Rules that keep the workspace shared:
 2. Commit messages: English, imperative summary line, capitalised, no trailing period
    (`Add FOK pre-walk to the fill loop`). Body explains *why* when it is not obvious.
 3. Keep PRs to one task. Tick the task checkbox in `docs/PLAN.md` in the same PR.
-4. `just verify` must pass locally. CI runs the same gates.
+4. `just verify` must pass locally. CI runs the same gates. `main` takes commits only
+   through a PR whose **all gates** check is green — that one job gates the other eight.
 5. Fill the PR template: what changed, how it was tested, bench numbers if the hot path moved,
    ADR link if a decision was made.
-6. One approving review. Reviewers use `.claude/skills/domain-check` and
+6. One approving review whenever there is a second pair of eyes. The ruleset does not
+   require an approval — with a single maintainer it would deadlock the repo — so this
+   one is on you. Reviewers use `.claude/skills/domain-check` and
    `.claude/skills/hot-path-review` as checklists; you can pre-empt them.
 
 ## What a PR needs
